@@ -4,7 +4,7 @@ require 'open-uri'
 links = ""
 refine = ""
 linksH = {}
-
+linksA = []
 open( "http://www.google.com/reader/public/atom/user/13310254936429827125/state/com.google/starred?n=1000") do |http|
 	response = http.read
 	result = RSS::Parser.parse(response, false)
@@ -15,6 +15,7 @@ open( "http://www.google.com/reader/public/atom/user/13310254936429827125/state/
 		links << item.link.href.to_s
 		links << "\n"
 		linksH[i.to_s << " - " << item.title.to_s.gsub('<title type="html">', '').gsub('</title>', '')] = item.link.href.to_s
+		linksA << [i.to_s << " - " << item.title.to_s.gsub('<title type="html">', '').gsub('</title>', ''), item.link.href.to_s]
 		i += 1
 	end
 end
@@ -29,9 +30,12 @@ end
 
 File::open( 'starred.html', 'w') do |f|
 	f << "<html>\n<head>\n<title>Starred Items</title>\n</head>\n<body>\n"
-	linksH.each do |title, link|
-		f << "<a href='#{link}'>#{title}</a>"
-		f << "<br> \n"
+#	linksH.each do |title, link|
+#		f << "<a href='#{link}'>#{title}</a>"
+#		f << "<br> \n"
+#	end
+	linksA.each do |item|
+		f << "<a href='#{item[1]}'>#{item[0]}</a><br>\n"
 	end
 	f << "</body>\n</html>"
 end
