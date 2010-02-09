@@ -1,4 +1,5 @@
 h1. Supernova
+
 _export your Google reader starred items_
 
 You need to change the '@'s in the url (line 8 in supernova.rb) with your user id.
