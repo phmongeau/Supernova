@@ -5,7 +5,7 @@ links = "" #raw link
 linksH = [] #title and link for html
 
 #open the rss and get the items
-open( "http://www.google.com/reader/public/atom/user/@@@@@@@@@@@@@@/state/com.google/starred?n=1000") do |http|
+open( "http://www.google.com/reader/public/atom/user/willtatz/state/com.google/starred?n=1000") do |http|
 	response = http.read
 	result = RSS::Parser.parse(response, false)
 	items = result.items
